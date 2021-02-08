@@ -11,9 +11,8 @@ const User = require('../models/User');
 // @route POST api/users
 // @desc register new user
 router.post('/', [
-    check('name').not().isEmpty(),
-    check('role').not().isEmpty(),
-    check('email').isEmail(),
+    check('name', "Укажите имя").not().isEmpty(),
+    check('email', "укажите корректный email адрес").isEmail(),
     check('password', 'Укажите пароль длинной более 8 символов!').isLength({ min: 8 })
 ], async (req, res) => {
     //валидация запроса
@@ -46,14 +45,15 @@ router.post('/', [
         //gen token
         const payload = {
             user: {
-                id: user.id
+                id: user.id,
+                role: user.role
             }
         };
 
         jwt.sign(
             payload, 
             config.get('JWT'), 
-            {expiresIn: 3600},
+            {expiresIn: 36000},
             (error, token)=> {
                 if(error) throw error;
                 res.json({ token });

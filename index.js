@@ -26,6 +26,11 @@ app.get("*", (req,res) => {
     res.sendFile(path.resolve(__dirname, '_front-app', 'build', 'index.html'));
 });
 
+//initial port to start
+const PORT = process.env.PORT || 5000;
+
+//server app
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 
 /*
 if (process.env.NODE_ENV === "production") {
@@ -36,8 +41,3 @@ if (process.env.NODE_ENV === "production") {
     });
 }
 */
-//initial port to start
-const PORT = process.env.PORT || 5000;
-
-//server app
-app.listen(PORT, () => console.log(`Server is running on ${PORT}`));

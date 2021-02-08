@@ -7,7 +7,6 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-
 // @route POST api/auth
 // @desc authenticate user and get token
 router.post('/', [
