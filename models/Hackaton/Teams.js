@@ -5,40 +5,23 @@ const TeamsSchema = new mongoose.Schema({
     required: true,
   },
   hackaton: {
-    name: {
-      type: String,
+    hack: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "hacks",
     },
-    teamCase: {
-      type: Object,
-    },
-    date: {
-      type: Date,
-    },
-    link: {
-      type: String,
-      default: "ссылка не прикреплена",
-    },
+    task: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "tasks",
+    }
   },
   capt: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "users",
   },
   team: [
     {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-      },
-      name: {
-        type: String,
-      },
-      email: {
-        type: String,
-      },
-      status: {
-        type: String,
-        default: "teammate",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
   ],
   date: {

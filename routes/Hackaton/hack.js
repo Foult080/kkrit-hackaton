@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
-const Hack = require("../../models/Hackaton/Hack");
+const Hacks = require("../../models/Hackaton/Hacks");
 
 //@route POST api/hack/
 //@desc create new hackaton
@@ -11,7 +11,7 @@ router.post(
   auth,
   [
     check("name", "Укажите название Хакатона").not().isEmpty(),
-    check("cases", "укажите кейсы"),
+    check("period", "Укажите период проведения").not().isEmpty(),
   ],
   async (req, res) => {
     //check data
@@ -24,22 +24,13 @@ router.post(
       return res.status(401).json({ msg: "Нет доступа" });
     }
     try {
-      //get all records 
-      let haks = await Hack.find().sort({date: -1});
       //get data from req
-      const { name, cases } = req.body;
-      const hack = new Hack({ name });
-      //add cases for hackaton
-      hack.cases = cases;
-      /*
-      cases.forEach((item) => {
-        hack.cases.unshift(item);
-      });*/
+      const { name, period } = req.body;
+      const hack = new Hacks({ name, period });
       //save data
       await hack.save();
       //response to client
-      haks.unshift(hack);
-      res.json(haks);
+      return res.json(haks);
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });
@@ -51,27 +42,13 @@ router.post(
 //@desc get all hack for admin hackatons
 router.get("/all", auth, async (req, res) => {
   try {
-    const hacks = await Hack.find().sort({ date : -1});
+    const hacks = await Hack.find().sort({ date: -1 });
     res.send(hacks);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: "Ошибка сервера" });
   }
 });
-
-/*
-//@route GET hack api/hack
-//@desc get hack for student
-router.get("/", auth, async (req, res) => {
-  try {
-    const hack = await Hack.findOne({ status: "ready" });
-    res.send(hack);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: "Ошибка сервера" });
-  }
-});
-*/
 
 //@route GET api/hack
 //@desc get ongoing hack
