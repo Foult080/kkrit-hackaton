@@ -12,6 +12,7 @@ router.post(
   [
     check("name", "Укажите название Хакатона").not().isEmpty(),
     check("period", "Укажите период проведения").not().isEmpty(),
+    check("tasks", "Укажите задачи").not().isEmpty(),
   ],
   async (req, res) => {
     //check data
@@ -25,12 +26,12 @@ router.post(
     }
     try {
       //get data from req
-      const { name, period } = req.body;
-      const hack = new Hacks({ name, period });
+      const { name, period, tasks } = req.body;
+      const hack = new Hacks({ name, period, tasks });
       //save data
       await hack.save();
       //response to client
-      return res.json(haks);
+      return res.json(hack);
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });
@@ -42,7 +43,7 @@ router.post(
 //@desc get all hack for admin hackatons
 router.get("/all", auth, async (req, res) => {
   try {
-    const hacks = await Hack.find().sort({ date: -1 });
+    const hacks = await Hacks.find().populate("tasks").sort({ date: -1 });
     res.send(hacks);
   } catch (err) {
     console.error(err.message);
@@ -54,7 +55,7 @@ router.get("/all", auth, async (req, res) => {
 //@desc get ongoing hack
 router.get("/", auth, async (req, res) => {
   try {
-    const hack = await Hack.findOne({ status: "ongoing" });
+    const hack = await Hacks.findOne({ status: "ready" }).populate("tasks");
     res.json(hack);
   } catch (err) {
     console.error(err.message);
@@ -64,23 +65,30 @@ router.get("/", auth, async (req, res) => {
 
 //@route PUT api/hack/:id
 //@desc change status hackaton
-router.put("/:id", auth, async (req, res) => {
-  //check role
-  if (req.user.role !== "admin") {
-    return res.status(401).json({ msg: "Нет доступа" });
+router.put(
+  "/status/:id",
+  auth,
+  [check("status", "Статус не выбран").not().isEmpty()],
+  async (req, res) => {
+    //check role
+    if (req.user.role !== "admin") {
+      return res.status(401).json({ msg: "Нет доступа" });
+    }
+    try {
+      //get hackaton by id
+      let hack = await Hacks.findById(req.params.id);
+      //get status from req
+      const status = req.body.status;
+      //change status
+      hack.status = status;
+      hack.save();
+      //response to user
+      res.json(hack);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: "Ошибка сервера" });
+    }
   }
-  try {
-    //get hackaton by id
-    let hack = await Hack.findById(req.params.id);
-    //change status
-    hack.status = "close";
-    hack.save();
-    //response to user
-    res.json(hack);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: "Ошибка сервера" });
-  }
-});
+);
 
 module.exports = router;
