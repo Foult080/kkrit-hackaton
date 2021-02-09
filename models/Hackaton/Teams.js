@@ -12,7 +12,11 @@ const TeamsSchema = new mongoose.Schema({
     task: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "tasks",
-    }
+    },
+    link: {
+      type: String,
+      default: "ссылка не добавлена",
+    },
   },
   capt: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,8 +24,14 @@ const TeamsSchema = new mongoose.Schema({
   },
   team: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+      },
+      status: {
+        type: String,
+        default: "teammate"
+      },
     },
   ],
   date: {

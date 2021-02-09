@@ -20,6 +20,7 @@ app.use('/api/news', require('./routes/news'));
 app.use('/api/contact', require('./routes/contactForm'));
 //hack routes
 app.use('/api/hack/tasks', require("./routes/Hackaton/Tasks"));
+app.use('/api/hack/teams', require("./routes/Hackaton/team"));
 app.use('/api/hack', require('./routes/Hackaton/hack'));
 
 //resolve static folder for react app

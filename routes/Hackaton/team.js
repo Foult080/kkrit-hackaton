@@ -4,7 +4,83 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const Teams = require("../../models/Hackaton/Teams");
 const User = require("../../models/User");
-const Hack = require("../../models/Hackaton/Hack");
+const Hack = require("../../models/Hackaton/Hacks");
+
+//@route POST api/hack/teams
+//@desc create and update team profile
+router.post(
+  "/test",
+  auth,
+  [check("name", "Укажите название команды").not().isEmpty()],
+  async (req, res) => {
+    //valid data
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    //get data from req
+    const { name, hack, task, link } = req.body;
+    //create team obj
+    let teamObj = {
+      name: name,
+      hackaton: { hack: hack, task: task, link: link },
+      capt: req.user.id,
+      team: {
+        user: req.user.id,
+        status: "captain",
+      },
+    };
+    try {
+      //check team exists
+      let team = await Teams.findOne({
+        capt: req.user.id,
+      });
+      //if exist update
+      if (team) {
+        team = await Teams.findOneAndUpdate(
+          { capt: req.user.id },
+          { $set: teamObj },
+          { new: true, upsert: true }
+        );
+        return res.send(team);
+      }
+      //create new team
+      team = new Teams(teamObj);
+      await team.save();
+      res.send(team);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: "Ошибка сервера" });
+    }
+  }
+);
+
+router.get("/test", auth, async (req, res) => {
+  try {
+    let team = await Teams.findOne({ capt: req.user.id })
+      .populate("hackaton.hack", "name period")
+      .populate("hackaton.task", "title description")
+      .populate("team.user", "name email");
+    console.log(team);
+    if (team) res.send(team);
+    else return res.status(404).json({ msg: "Команда отсутсвует" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: "Ошибка сервера" });
+  }
+});
+
+router.get("/test2", auth, async (req, res) => {
+  try {
+    let team = await Teams.findOne({
+      team: { $elemMatch: { user: req.user.id } },
+    });
+    res.send(team);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: "Ошибка сервера" });
+  }
+});
 
 //@route POST api/hack
 //@desc create team
