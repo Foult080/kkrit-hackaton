@@ -9,7 +9,7 @@ const Hack = require("../../models/Hackaton/Hacks");
 //@route POST api/hack/teams
 //@desc create and update team profile
 router.post(
-  "/test",
+  "/",
   auth,
   [check("name", "Укажите название команды").not().isEmpty()],
   async (req, res) => {
@@ -55,13 +55,16 @@ router.post(
   }
 );
 
-router.get("/test", auth, async (req, res) => {
+router.get("/all", auth, async (req, res) => {
+    //check role
+    if (req.user.role !== "admin") {
+      return res.status(401).json({ msg: "Нет доступа" });
+    }
   try {
     let team = await Teams.findOne({ capt: req.user.id })
       .populate("hackaton.hack", "name period")
       .populate("hackaton.task", "title description")
       .populate("team.user", "name email");
-    console.log(team);
     if (team) res.send(team);
     else return res.status(404).json({ msg: "Команда отсутсвует" });
   } catch (err) {
@@ -70,11 +73,14 @@ router.get("/test", auth, async (req, res) => {
   }
 });
 
-router.get("/test2", auth, async (req, res) => {
+router.get("/me", auth, async (req, res) => {
   try {
     let team = await Teams.findOne({
       team: { $elemMatch: { user: req.user.id } },
-    });
+    })
+      .populate("hackaton.hack", "name period")
+      .populate("hackaton.task", "title description")
+      .populate("team.user", "name email");
     res.send(team);
   } catch (err) {
     console.error(err.message);
@@ -82,6 +88,7 @@ router.get("/test2", auth, async (req, res) => {
   }
 });
 
+/*
 //@route POST api/hack
 //@desc create team
 router.post(
@@ -266,4 +273,5 @@ router.delete("/del-from-team/:id", auth, async (req, res) => {
   }
 });
 
+*/
 module.exports = router;
