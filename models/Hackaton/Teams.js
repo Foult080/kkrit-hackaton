@@ -18,10 +18,6 @@ const TeamsSchema = new mongoose.Schema({
       default: "ссылка не добавлена",
     },
   },
-  capt: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  },
   team: [
     {
       user: {
@@ -30,7 +26,7 @@ const TeamsSchema = new mongoose.Schema({
       },
       status: {
         type: String,
-        default: "teammate"
+        default: "teammate",
       },
     },
   ],
