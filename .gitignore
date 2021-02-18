@@ -1,4 +1,5 @@
 node_modules/
 _front-app/build/
 _front-app/kras-krit
-_front-app/node_modules
+_front-app/node_modules/
+front-hack/node_modules/
