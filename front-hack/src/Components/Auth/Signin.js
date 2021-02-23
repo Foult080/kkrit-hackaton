@@ -13,8 +13,8 @@ const Signin = () => {
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
-          <Image src="/logo.png" /> Log-in to your account
+        <Header as="h2" color="green" textAlign="center">
+        Войти в учётную запись
         </Header>
         <Form size="large">
           <Segment stacked>
@@ -32,13 +32,13 @@ const Signin = () => {
               type="password"
             />
 
-            <Button color="teal" fluid size="large">
-              Login
+            <Button color="green" fluid size="large">
+              Войти
             </Button>
           </Segment>
         </Form>
         <Message>
-          New to us? <a href="#">Sign Up</a>
+          Нет учетной записи? <a href="/signin">Зарегистрироваться</a>
         </Message>
       </Grid.Column>
     </Grid>

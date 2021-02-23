@@ -23,16 +23,16 @@ const Footer = () => {
               </List>
             </Grid.Column>
             <Grid.Column width={4}>
-              <h4 as="h4" inverted>
+              <h4 as="h4">
                 <Icon name="globe" />
                 ККРИТ-Хакатон
                 <Icon name="registered" />
               </h4>
               <List link inverted>
-                <List.Item as="a">Creaated by @foult080</List.Item>
-                <List.Item as="a">
+                <List.Item as="a" href="https://github.com/Foult080" target="blanc">Creaated by @foult080</List.Item>
+                <List.Item as="a"href="https://github.com/Foult080/kkrit-hackaton">
                   <Icon name="github" />
-                  Like on Github
+                  Like project on Github
                 </List.Item>
               </List>
             </Grid.Column>

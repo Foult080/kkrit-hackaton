@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { createRef, Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./Components/Auth/Login";
 import Signin from "./Components/Auth/Signin";
@@ -10,8 +10,7 @@ import NavBar from "./Components/Layout/NavBar";
 
 const App = () => {
   return (
-    <Fragment>
-      <Router>
+    <Router>
       <NavBar />
       <section className="wrapper">
         <Switch>
@@ -21,8 +20,7 @@ const App = () => {
         </Switch>
       </section>
       <Footer />
-      </Router>
-    </Fragment>
+    </Router>
   );
 };
 

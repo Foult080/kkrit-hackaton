@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import { Button, Container, Menu, Icon } from "semantic-ui-react";
 import logo from "./logo.png";
 
@@ -15,7 +15,7 @@ function NavBar() {
         </Menu.Item>
 
         <Menu.Item position="right">
-          <Button animated="fade" color="green" as="a">
+          <Button animated="fade" color="green" as="a" href="/signin">
             <Button.Content visible>
               <Icon name="user circle" />
               Зарегистрироваться
@@ -28,6 +28,7 @@ function NavBar() {
           <Button
             animated="fade"
             as="a"
+            href="/login"
             style={{ marginLeft: "0.5em" }}
             color="blue"
           >
