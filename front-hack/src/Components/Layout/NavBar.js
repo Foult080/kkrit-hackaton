@@ -8,7 +8,7 @@ function NavBar() {
       <Container>
         <Menu.Item as="a" href="/">
           <img src={logo} />
-          <p style={{ marginLeft: "0.5rem" }}>KKRIT-Хакатон</p>
+          <p style={{ marginLeft: "0.5rem", fontWeight: "600" }}>KKRIT-Хакатон</p>
         </Menu.Item>
         <Menu.Item as="a" href="/about">
           О проекте
