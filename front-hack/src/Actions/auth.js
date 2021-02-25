@@ -20,7 +20,6 @@ const config = {
 
 //load user info
 export const loadUser = () => async (dispatch) => {
-  console.log("Hello");
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -57,7 +56,6 @@ export const register = (values) => async (dispatch) => {
 
 //login user
 export const login = (values) => async (dispatch) => {
-  console.log(values);
   const body = JSON.stringify(values);
   try {
     const res = await axios.post("/api/auth", body, config);
