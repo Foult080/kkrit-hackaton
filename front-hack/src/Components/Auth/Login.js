@@ -1,4 +1,6 @@
-import React, { createRef, Fragment } from "react";
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import { useFormik } from "formik";
 import {
   Button,
@@ -8,17 +10,24 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
+import { login } from "../../Actions/auth";
+import { Redirect } from "react-router-dom";
 
-const Login = () => {
+const Login = ({login, isAuth}) => {
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      login(values);
     },
   });
+
+//redirect of logged in
+if (isAuth) {
+  return <Redirect to="/dashboard" />
+}
 
   return (
     <Fragment>
@@ -35,7 +44,7 @@ const Login = () => {
             <Segment stacked>
               <Form.Input
                 fluid
-                icon="user"
+                icon="mail"
                 iconPosition="left"
                 id="email"
                 type="email"
@@ -71,4 +80,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  isAuth: PropTypes.bool,
+  login: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+});
+
+export default connect(mapStateToProps, { login })(Login);
