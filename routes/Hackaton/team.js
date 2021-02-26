@@ -55,6 +55,8 @@ router.post(
   }
 );
 
+//@route GET api/hack/teams/all
+//@desc get all teams for admon panel
 router.get("/all", auth, async (req, res) => {
   //check role
   if (req.user.role !== "admin") {
@@ -73,6 +75,8 @@ router.get("/all", auth, async (req, res) => {
   }
 });
 
+//@route GET api/hack/teams/me
+//@desc get my team profile
 router.get("/me", auth, async (req, res) => {
   try {
     let team = await Teams.findOne({

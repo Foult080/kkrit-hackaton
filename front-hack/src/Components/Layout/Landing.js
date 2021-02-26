@@ -8,7 +8,6 @@ import {
   Icon,
   Segment,
   GridColumn,
-  Message,
 } from "semantic-ui-react";
 import team from "./team.svg";
 import signin from "./sign_in.svg";

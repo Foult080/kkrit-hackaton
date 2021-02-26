@@ -10,3 +10,8 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
+//teams
+export const UPDATE_TEAM = "UPDATE_TEAM";
+export const DELETE_TEAM = "DELETE_TEAM";
+export const ERROR_TEAM = "ERROR_TEAM";
+export const GET_TEAM = "GET_TEAM";
