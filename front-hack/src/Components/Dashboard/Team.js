@@ -9,8 +9,6 @@ const Team = ({ getMyTeam, team }) => {
     getMyTeam();
   }, [getMyTeam]);
 
-  console.log(team);
-
   return (
     <div>
       <Header as="h2" content="Моя команда" textAlign="center" color="green" />

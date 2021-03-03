@@ -22,8 +22,6 @@ const Login = ({ login, isAuth, errors }) => {
     return <Redirect to="/dashboard" />;
   }
 
-  console.log(errors);
-
   return (
     <Fragment>
       <Grid
