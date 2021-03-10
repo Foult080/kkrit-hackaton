@@ -21,8 +21,6 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
     getMyTeam();
   }, [getMyTeam]);
 
-  console.log(team);
-
   return loading ? (
     <Spinner />
   ) : (

@@ -5,6 +5,7 @@ import { Container, Tab, Menu, Image, Header } from "semantic-ui-react";
 import Spinner from "../Layout/Spinner";
 import Team from "./Team";
 import Hack from "./Hack";
+import ArchiveHack from "./ArchiveHack";
 
 const Dashboard = ({ auth: { user, loading } }) => {
   let panes = [];
@@ -34,7 +35,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
           icon: "archive",
           content: "Архив конкурсов",
         },
-        render: () => <Hack />,
+        render: () => <ArchiveHack />,
       },
       {
         menuItem: { key: "faq", icon: "question circle", content: "F.A.Q." },
