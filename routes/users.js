@@ -20,7 +20,7 @@ router.post('/', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, group } = req.body;
     try {
         //check email
         let user = await User.findOne({ email });
@@ -34,7 +34,7 @@ router.post('/', [
 
         //create user obj
         user = new User({
-            name, email, avatar, password, role
+            name, email, avatar, password, role, group
         });
 
         //hash pass

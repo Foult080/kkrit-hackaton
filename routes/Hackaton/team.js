@@ -55,6 +55,8 @@ router.post(
   }
 );
 
+//@route GET api/hack/teams/all
+//@desc get all teams for admon panel
 router.get("/all", auth, async (req, res) => {
   //check role
   if (req.user.role !== "admin") {
@@ -73,6 +75,8 @@ router.get("/all", auth, async (req, res) => {
   }
 });
 
+//@route GET api/hack/teams/me
+//@desc get my team profile
 router.get("/me", auth, async (req, res) => {
   try {
     let team = await Teams.findOne({
@@ -80,8 +84,9 @@ router.get("/me", auth, async (req, res) => {
     })
       .populate("hackaton.hack", "name period")
       .populate("hackaton.task", "title description")
-      .populate("team.user", "name email");
-    return res.send(team);
+      .populate("team.user", "name avatar");
+    if (team) return res.send(team);
+    else return res.status(404).json({ msg: "Команда отсутсвует" });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: "Ошибка сервера" });

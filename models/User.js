@@ -19,7 +19,10 @@ const UsersSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "user"
+    default: "user",
+  },
+  group: {
+    type: String,
   },
   date: {
     type: Date,
