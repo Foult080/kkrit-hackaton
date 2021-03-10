@@ -3,9 +3,10 @@ import { useFormik } from "formik";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { register } from "../../Actions/auth";
+import { Redirect } from "react-router-dom";
 import { Button, Form, Grid, Header, Message, Icon } from "semantic-ui-react";
 
-const Signin = ({ errors, register }) => {
+const Signin = ({ errors, register, isAuth }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -18,6 +19,11 @@ const Signin = ({ errors, register }) => {
       register(values);
     },
   });
+
+  //redirect of logged in
+  if (isAuth) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
@@ -96,7 +102,10 @@ const Signin = ({ errors, register }) => {
         </Form>
         <Message attached="bottom" color="green">
           <Icon name="help" />
-          Уже зарегистрированы?&nbsp;<a color="green" href="/login">Войдите</a>
+          Уже зарегистрированы?&nbsp;
+          <a color="green" href="/login">
+            Войдите
+          </a>
         </Message>
       </Grid.Column>
     </Grid>

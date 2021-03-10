@@ -85,7 +85,8 @@ router.get("/me", auth, async (req, res) => {
       .populate("hackaton.hack", "name period")
       .populate("hackaton.task", "title description")
       .populate("team.user", "name avatar");
-    return res.send(team);
+    if (team) return res.send(team);
+    else return res.status(404).json({ msg: "Команда отсутсвует" });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: "Ошибка сервера" });

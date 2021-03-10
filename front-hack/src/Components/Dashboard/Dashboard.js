@@ -21,7 +21,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
       },
       {
         menuItem: { key: "hack", icon: "winner", content: "Текущий конкурс" },
-        render: () => <Team />,
+        render: () => <Hack />,
       },
       {
         menuItem: { key: "team", icon: "users", content: "Моя команда" },

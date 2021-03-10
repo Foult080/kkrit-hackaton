@@ -6,11 +6,11 @@ import {
   Card,
   Feed,
   Container,
-  CardDescription,
   Button,
   Grid,
   GridColumn,
   Icon,
+  Segment,
 } from "semantic-ui-react";
 import { getMyTeam } from "../../Actions/team";
 import formatDate from "../../Utils/formatDate";
@@ -23,7 +23,9 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
 
   console.log(team);
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <div style={{ height: "100vh" }}>
       <Container>
         <Header
@@ -33,11 +35,33 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
           color="green"
         />
         <hr />
-        {!loading && team ? (
+        {team === null ? (
+          <Segment basic textAlign="center">
+            <Header
+              as="h3"
+              content="Вы не в команде"
+              style={{
+                fontSize: "2em",
+                fontWeight: "bold",
+              }}
+            />
+            <Button
+              as="a"
+              href="/create-team"
+              color="blue"
+              size="large"
+              icon="id card"
+              labelPosition="left"
+              content="Создать команду"
+            />
+          </Segment>
+        ) : (
           <Card fluid color="green">
             <Card.Content>
               <Card.Header>Название команды: {team.name}</Card.Header>
-              <CardDescription></CardDescription>
+            </Card.Content>
+            <Card.Content>
+              <Card.Header>Название команды: {team.name}</Card.Header>
             </Card.Content>
             <Card.Content>
               <Card.Header>Участники:</Card.Header>
@@ -55,10 +79,7 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
                             </Feed.Summary>
                           </GridColumn>
                           <GridColumn textAlign="center" width={4}>
-                            <Button color="red">
-                              <Icon name="trash alternate" />
-                              Удалить
-                            </Button>
+                            <Button color="red" icon="trash alternate" />
                           </GridColumn>
                         </Grid.Row>
                       </Grid>
@@ -85,8 +106,6 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
               meta={"Дата образования: " + formatDate(team.date)}
             ></Card.Content>
           </Card>
-        ) : (
-          <Spinner />
         )}
       </Container>
     </div>
