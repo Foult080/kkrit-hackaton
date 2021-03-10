@@ -84,7 +84,7 @@ router.get("/me", auth, async (req, res) => {
     })
       .populate("hackaton.hack", "name period")
       .populate("hackaton.task", "title description")
-      .populate("team.user", "name email");
+      .populate("team.user", "name avatar");
     return res.send(team);
   } catch (err) {
     console.error(err.message);

@@ -20,13 +20,14 @@ const Dashboard = ({ auth: { user, loading } }) => {
         render: () => <Team />,
       },
       {
-        menuItem: { key: "team", icon: "users", content: "Моя команда" },
-        render: () => <Team />,
-      },
-      {
         menuItem: { key: "hack", icon: "winner", content: "Текущий конкурс" },
         render: () => <Team />,
       },
+      {
+        menuItem: { key: "team", icon: "users", content: "Моя команда" },
+        render: () => <Team />,
+      },
+
       {
         menuItem: {
           key: "archive",
