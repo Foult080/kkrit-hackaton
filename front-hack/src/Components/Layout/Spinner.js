@@ -1,5 +1,5 @@
 import React from "react";
-import spinner from "./Rolling-1s-200px.gif";
+import spinner from "./imgs/Rolling-1s-200px.gif";
 import {Container} from "semantic-ui-react";
 
 const Spinner = () => (

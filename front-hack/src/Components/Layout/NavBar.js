@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logOut } from "../../Actions/auth";
 import { Button, Container, Menu, Icon } from "semantic-ui-react";
-import logo from "./logo.png";
+import logo from "./imgs/logo.png";
 
 function NavBar({ auth: { loading, isAuth }, logOut }) {
   const authLinks = (

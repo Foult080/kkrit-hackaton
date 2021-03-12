@@ -9,9 +9,9 @@ import {
   Segment,
   GridColumn,
 } from "semantic-ui-react";
-import team from "./team.svg";
-import signin from "./sign_in.svg";
-import winner from "./winner.svg";
+import team from "./imgs/team.svg";
+import signin from "./imgs/sign_in.svg";
+import winner from "./imgs/winner.svg";
 
 const Landing = () => (
   <Fragment>
