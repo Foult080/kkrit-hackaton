@@ -17,14 +17,13 @@ const ArchiveHack = ({ getArchive, archive: { loading, archive } }) => {
     getArchive();
   }, [getArchive]);
 
-  console.log(loading, archive);
   return loading && archive === null ? (
     <Spinner />
   ) : (
     <Container>
       <Header
         as="h2"
-        content="Карточка команды"
+        content="Архив конкурсов"
         textAlign="center"
         color="green"
       />
@@ -34,6 +33,7 @@ const ArchiveHack = ({ getArchive, archive: { loading, archive } }) => {
           <Card.Content>
             <Card.Header>Название: {item.name}</Card.Header>
             <CardDescription>
+              <p>Статус мероприятия: {item.status}</p>
               <p>Дата проведения: {item.period}</p>
             </CardDescription>
           </Card.Content>
@@ -43,8 +43,12 @@ const ArchiveHack = ({ getArchive, archive: { loading, archive } }) => {
               <Feed key={element._id}>
                 <Feed.Event>
                   <Feed.Content>
-                  
-                    <Feed.Summary>Строка</Feed.Summary>
+                    <ul>
+                      <li>
+                        <h4>{element.title}</h4>
+                        <p>{element.description}</p>
+                      </li>
+                    </ul>
                   </Feed.Content>
                 </Feed.Event>
               </Feed>

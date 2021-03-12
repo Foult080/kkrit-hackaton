@@ -22,7 +22,9 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
   }, [getMyTeam]);
 
   return loading ? (
-    <Spinner />
+    <Container>
+      <Spinner />
+    </Container>
   ) : (
     <div style={{ height: "100vh" }}>
       <Container>

@@ -20,3 +20,20 @@ export const getArchive = () => async (dispatch) => {
     });
   }
 };
+
+//load current hackaton
+export const getCurrent = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/hack/");
+    dispatch({
+      type: GET_HACK,
+      payload: res.data,
+    });
+  } catch (error) {
+    const err = error.response;
+    dispatch({
+      type: ERROR_HACK,
+      payload: { msg: err.statusText, status: err.status },
+    });
+  }
+};
