@@ -33,8 +33,7 @@ const EditTeam = ({
         key: item._id,
         text: item.title,
         value: item._id,
-        name: "task",
-        id: "task",
+        name: item._id,
       });
     });
   }
@@ -76,20 +75,18 @@ const EditTeam = ({
           {hack === null ? (
             <h1>Hello</h1>
           ) : (
-            <div class="field">
-              <label>Выберете задание</label>
-              <select
-                class="ui fluid dropdown"
-                name="task"
-                onChange={formik.handleChange}
-              >
-                {hack.tasks.map((item) => (
-                  <option key={item._id} value={item._id}>
-                    {item.title}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Form.Select
+              clearable
+              selection
+              options={options}
+              onChange={(e) =>
+                formik.setFieldValue("hack", e.target.getAttribute("name"))
+              }
+              name="gender"
+              value={options["name"]}
+              placeholder="Select"
+              selection
+            />
           )}
 
           <Button color="green" size="large" type="submit">
