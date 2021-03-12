@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   Header,
   Card,
@@ -43,15 +44,15 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
                 fontWeight: "bold",
               }}
             />
-            <Button
-              as="a"
-              href="/create-team"
-              color="blue"
-              size="large"
-              icon="id card"
-              labelPosition="left"
-              content="Создать команду"
-            />
+            <Link to="/create-team">
+              <Button
+                color="blue"
+                size="large"
+                icon="id card"
+                labelPosition="left"
+                content="Создать команду"
+              />
+            </Link>
           </Segment>
         ) : (
           <Card fluid color="green">
