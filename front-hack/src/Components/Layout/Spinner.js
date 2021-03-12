@@ -1,14 +1,15 @@
-import React, { Fragment } from "react";
-import spinner from "./spinner2.gif";
+import React from "react";
+import spinner from "./Rolling-1s-200px.gif";
+import {Container} from "semantic-ui-react";
 
 const Spinner = () => (
-  <Fragment>
+  <Container>
     <img
       src={spinner}
       style={{ width: "250px", margin: "auto", display: "block" }}
       alt="Loading..."
     />
-  </Fragment>
+  </Container>
 );
 
 export default Spinner;
