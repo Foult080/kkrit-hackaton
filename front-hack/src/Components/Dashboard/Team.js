@@ -10,7 +10,6 @@ import {
   Button,
   Grid,
   GridColumn,
-  Icon,
   Segment,
 } from "semantic-ui-react";
 import { getMyTeam } from "../../Actions/team";
@@ -87,18 +86,28 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
                 </Feed>
               ))}
               <GridColumn textAlign="center">
-                <Button color="blue">
-                  <Icon name="edit" />
-                  Редактировать
-                </Button>
-                <Button color="green">
-                  <Icon name="add user" />
-                  Добавить участника
-                </Button>
-                <Button color="red">
-                  <Icon name="trash alternate" />
-                  Удалить команду
-                </Button>
+                <Link to="/edit-team">
+                  <Button
+                    color="blue"
+                    icon="id card"
+                    labelPosition="left"
+                    content="Редактировать"
+                  />
+                </Link>
+
+                <Button
+                  color="green"
+                  icon="add user"
+                  labelPosition="left"
+                  content="Добавить участника"
+                />
+
+                <Button
+                  color="red"
+                  icon="trash alternate"
+                  labelPosition="left"
+                  content="Удалить команду"
+                />
               </GridColumn>
             </Card.Content>
             <Card.Content

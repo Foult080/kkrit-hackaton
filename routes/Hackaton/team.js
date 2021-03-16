@@ -24,27 +24,27 @@ router.post(
     let teamObj = {
       name: name,
       hackaton: { hack: hack, task: task, link: link },
-      capt: req.user.id,
-      team: {
-        user: req.user.id,
-        status: "captain",
-      },
     };
     try {
       //check team exists
       let team = await Teams.findOne({
-        capt: req.user.id,
+        team: { $elemMatch: { user: req.user.id } },
       });
+      console.log(team);
       //if exist update
       if (team) {
         team = await Teams.findOneAndUpdate(
-          { capt: req.user.id },
+          { team: { $elemMatch: { user: req.user.id } } },
           { $set: teamObj },
           { new: true, upsert: true }
         );
         return res.send(team);
       }
       //create new team
+      teamObj.team = {
+        user: req.user.id,
+        status: "captain",
+      };
       team = new Teams(teamObj);
       await team.save();
       res.send(team);

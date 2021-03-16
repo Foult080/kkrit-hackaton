@@ -1,28 +1,33 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { useFormik, useField } from "formik";
-import { getMyTeam } from "../../Actions/team";
+import { useFormik } from "formik";
+import { Link } from "react-router-dom";
+import { getMyTeam, createTeam } from "../../Actions/team";
 import { getCurrent } from "../../Actions/hackatons";
 import { Button, Grid, Header, Message, Form } from "semantic-ui-react";
 import Spinner from "../Layout/Spinner";
 
-const EditTeam = ({
+const CreateTeam = ({
   getMyTeam,
-  team: { loading, team },
+  createTeam,
   getCurrent,
-  hack,
+  team,
+  hack: { loading, hack },
   errors,
+  history,
 }) => {
   useEffect(() => {
     getMyTeam();
     getCurrent();
-  }, [getMyTeam, getCurrent]);
+  }, [getCurrent]);
 
   const formik = useFormik({
     initialValues: { name: "", hack: "", task: "", link: "" },
     onSubmit: (values) => {
-      console.log(values);
+      values.hack = hack._id;
+      createTeam(values);
+      history.push("/dashboard");
     },
   });
 
@@ -38,8 +43,18 @@ const EditTeam = ({
     });
   }
 
+  if (team) {
+    formik.values = {
+      name: team.name,
+      hack: team.hackaton.hack._id,
+      task: team.hackaton.task._id,
+      link: team.hackaton.link,
+    };
+  }
+
   console.log(team);
-  console.warn(hack);
+  console.log(formik.values);
+
   return loading ? (
     <Spinner />
   ) : (
@@ -73,33 +88,56 @@ const EditTeam = ({
           />
 
           {hack === null ? (
-            <h1>Hello</h1>
+            <h3>На данный момент хакатонов нет</h3>
           ) : (
-            <Form.Select
-              clearable
-              selection
-              options={options}
-              onChange={(e) =>
-                formik.setFieldValue("hack", e.target.getAttribute("name"))
-              }
-              name="gender"
-              value={options["name"]}
-              placeholder="Select"
-              selection
-            />
+            <div style={{ marginBottom: "1em" }}>
+              <Header as="h3" color="green" textAlign="center">
+                {hack.name}
+              </Header>
+              <p>{hack.period}</p>
+              <Form.Select
+                clearable
+                selection
+                options={options}
+                onChange={(e) =>
+                  formik.setFieldValue("task", e.target.getAttribute("name"))
+                }
+                name="task"
+                value={formik.values.task}
+                placeholder="Выберете задание"
+                selection
+              />
+              <Form.Input
+                fluid
+                label="Ссылка на выполненное задание"
+                icon="linkify"
+                iconPosition="left"
+                id="link"
+                placeholder="Ссылка на проект"
+                onChange={formik.handleChange}
+                value={formik.values.link}
+                required
+              />
+            </div>
           )}
 
           <Button color="green" size="large" type="submit">
-            Зарегистрироваться
+            Создать команду
           </Button>
+          <Link to="/dashboard">
+            <Button color="teal" size="large">
+              Назад
+            </Button>
+          </Link>
         </Form>
       </Grid.Column>
     </Grid>
   );
 };
 
-EditTeam.propType = {
+CreateTeam.propType = {
   getMyTeam: PropTypes.func.isRequired,
+  createTeam: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
   getCurrent: PropTypes.func.isRequired,
   hack: PropTypes.object.isRequired,
@@ -107,8 +145,10 @@ EditTeam.propType = {
 
 const mapState = (state) => ({
   errors: state.alert,
-  team: state.team,
-  hack: state.hackatons.hack,
+  team: state.team.team,
+  hack: state.hackatons,
 });
 
-export default connect(mapState, { getMyTeam, getCurrent })(EditTeam);
+export default connect(mapState, { getMyTeam, getCurrent, createTeam })(
+  CreateTeam
+);

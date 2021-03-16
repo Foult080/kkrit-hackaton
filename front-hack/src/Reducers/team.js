@@ -15,6 +15,11 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_TEAM:
+      return {
+        ...state,
+        team: payload,
+        loading: false,
+      };
     case UPDATE_TEAM:
       return {
         ...state,
