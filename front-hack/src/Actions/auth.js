@@ -7,6 +7,7 @@ import {
   REGISTER_FAIL,
   REGISTER_SUCCESS,
   LOGOUT,
+  DELETE_TEAM,
 } from "./types";
 
 import setAuthToken from "../Utils/setAuthToken";
@@ -73,4 +74,5 @@ export const login = (values) => async (dispatch) => {
 //logout user
 export const logOut = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+  dispatch({ type: DELETE_TEAM });
 };

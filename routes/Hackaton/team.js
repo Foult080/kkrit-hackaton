@@ -30,7 +30,6 @@ router.post(
       let team = await Teams.findOne({
         team: { $elemMatch: { user: req.user.id } },
       });
-      console.log(team);
       //if exist update
       if (team) {
         team = await Teams.findOneAndUpdate(
@@ -93,7 +92,7 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
-//@route PUT /api/hack/team/add
+//@route PUT /api/hack/teams/add
 //desc add new teammate
 router.put(
   "/add",
@@ -144,12 +143,13 @@ router.put(
   }
 );
 
-//@route DELETE api/hack/team
+//@route DELETE api/hack/teams
 //@desc Delete team
 router.delete("/:id", auth, async (req, res) => {
+  //get id from req
   try {
     //find team
-    let team = await Teams.findById(peq.params.id);
+    let team = await Teams.findById(req.params.id);
     //delete team
     await team.remove();
     res.status(202).json({ msg: "Команда удалена" });
@@ -159,9 +159,15 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-//@route DELETE api/hack/team/team-mate/id
+router.delete("/team", auth, async (req,res) => {
+  const { id } = req.body;
+  console.log(id);
+  res.send("Hello");
+})
+
+//@route DELETE api/hack/teams/team-mate
 //@desc delete teammate
-router.delete("/del", auth, async (req, res) => {
+router.delete("/team-mate", auth, async (req, res) => {
   try {
     //get data from req
     const { id } = req.body;

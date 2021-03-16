@@ -33,6 +33,20 @@ export const createTeam = (values) => async (dispatch) => {
       type: UPDATE_TEAM,
       payload: res.data,
     });
+    dispatch(getMyTeam());
+  } catch (err) {
+    dispatch({
+      type: ERROR_TEAM,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//delete team
+export const deleteTeam = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/hack/teams/${id}`);
+    dispatch({ type: DELETE_TEAM });
   } catch (err) {
     dispatch({
       type: ERROR_TEAM,

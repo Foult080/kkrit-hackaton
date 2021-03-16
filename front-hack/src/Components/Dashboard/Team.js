@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,20 +11,37 @@ import {
   Grid,
   GridColumn,
   Segment,
+  Confirm,
 } from "semantic-ui-react";
-import { getMyTeam } from "../../Actions/team";
+import { getMyTeam, deleteTeam } from "../../Actions/team";
 import formatDate from "../../Utils/formatDate";
 import Spinner from "../Layout/Spinner";
 
-const Team = ({ getMyTeam, team: { loading, team } }) => {
+const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
   useEffect(() => {
     getMyTeam();
   }, [getMyTeam]);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    deleteTeam(team._id);
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
 
   return loading ? (
     <Spinner />
   ) : (
     <div style={{ height: "100vh" }}>
+      <Confirm
+        open={show}
+        content="Вы действительно хотите удалить команду?"
+        confirmButton="Удалить команду"
+        cancelButton="Отмена"
+        onCancel={handleClose}
+        onConfirm={handleClose}
+      />
+
       <Container>
         <Header
           as="h2"
@@ -103,6 +120,7 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
                 />
 
                 <Button
+                  onClick={handleShow}
                   color="red"
                   icon="trash alternate"
                   labelPosition="left"
@@ -123,10 +141,11 @@ const Team = ({ getMyTeam, team: { loading, team } }) => {
 Team.propTypes = {
   team: PropTypes.object.isRequired,
   getMyTeam: PropTypes.func.isRequired,
+  deleteTeam: PropTypes.func.isRequired,
 };
 
 const mapState = (state) => ({
   team: state.team,
 });
 
-export default connect(mapState, { getMyTeam })(Team);
+export default connect(mapState, { getMyTeam, deleteTeam })(Team);

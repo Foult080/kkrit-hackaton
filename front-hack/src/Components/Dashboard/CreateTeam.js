@@ -20,10 +20,18 @@ const CreateTeam = ({
   useEffect(() => {
     getMyTeam();
     getCurrent();
-  }, [getCurrent]);
+  }, [getMyTeam, getCurrent]);
+
+  const values = { name: "", hack: "", task: "", link: "" };
+  if (team) {
+    values.name = team.name;
+    values.hack = team.hackaton.hack._id;
+    values.task = team.hackaton.task._id;
+    values.link = team.hackaton.link;
+  }
 
   const formik = useFormik({
-    initialValues: { name: "", hack: "", task: "", link: "" },
+    initialValues: values,
     onSubmit: (values) => {
       values.hack = hack._id;
       createTeam(values);
@@ -42,18 +50,6 @@ const CreateTeam = ({
       });
     });
   }
-
-  if (team) {
-    formik.values = {
-      name: team.name,
-      hack: team.hackaton.hack._id,
-      task: team.hackaton.task._id,
-      link: team.hackaton.link,
-    };
-  }
-
-  console.log(team);
-  console.log(formik.values);
 
   return loading ? (
     <Spinner />
@@ -122,7 +118,7 @@ const CreateTeam = ({
           )}
 
           <Button color="green" size="large" type="submit">
-            Создать команду
+            Сохранить
           </Button>
           <Link to="/dashboard">
             <Button color="teal" size="large">
