@@ -29,6 +29,8 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
   };
   const handleShow = () => setShow(true);
 
+  console.log(team);
+
   return loading ? (
     <Spinner />
   ) : (
@@ -75,11 +77,22 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
             <Card.Content>
               <Card.Header>Название команды: {team.name}</Card.Header>
             </Card.Content>
+            {team.hackaton === null ? (
+              <Card.Content>
+                <Card.Header>Команда не учавствует в конкурсе</Card.Header>
+              </Card.Content>
+            ) : (
+              <Card.Content>
+                <Card.Header>Информация о конкурсе:</Card.Header>
+                <h4>{team.hackaton.hack.name}</h4>
+                <p>Период проведения: {team.hackaton.hack.period}</p>
+                <h4>Выбранное задание: {team.hackaton.task.title}</h4>
+                <p>Описание задания: {team.hackaton.task.description}</p>
+                <h4>Ссылка на выполненное задание: {team.hackaton.link}</h4>
+              </Card.Content>
+            )}
             <Card.Content>
-              <Card.Header>Название команды: {team.name}</Card.Header>
-            </Card.Content>
-            <Card.Content>
-              <Card.Header>Участники:</Card.Header>
+              <Card.Header>Участники команды:</Card.Header>
               {team.team.map((item) => (
                 <Feed key={item._id}>
                   <Feed.Event>

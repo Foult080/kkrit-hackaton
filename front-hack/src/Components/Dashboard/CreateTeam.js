@@ -22,7 +22,7 @@ const CreateTeam = ({
     getCurrent();
   }, [getMyTeam, getCurrent]);
 
-  const values = { name: "", hack: "", task: "", link: "" };
+  const values = { name: "", hack: null, task: null, link: "" };
   if (team) {
     values.name = team.name;
     values.hack = team.hackaton.hack._id;
