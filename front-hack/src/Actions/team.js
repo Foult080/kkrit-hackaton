@@ -54,3 +54,9 @@ export const deleteTeam = (id) => async (dispatch) => {
     });
   }
 };
+
+//add new team-mate
+export const addTeamMate = (values) => async (dispatch) => {
+  const body = JSON.stringify(values);
+  console.log(body);
+}

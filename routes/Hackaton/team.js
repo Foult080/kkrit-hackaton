@@ -159,12 +159,6 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/team", auth, async (req,res) => {
-  const { id } = req.body;
-  console.log(id);
-  res.send("Hello");
-})
-
 //@route DELETE api/hack/teams/team-mate
 //@desc delete teammate
 router.delete("/team-mate", auth, async (req, res) => {

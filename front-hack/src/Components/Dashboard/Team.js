@@ -12,16 +12,19 @@ import {
   GridColumn,
   Segment,
   Confirm,
+  Message,
 } from "semantic-ui-react";
 import { getMyTeam, deleteTeam } from "../../Actions/team";
 import formatDate from "../../Utils/formatDate";
 import Spinner from "../Layout/Spinner";
+import ModalAdd from "./ModalAdd";
 
 const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
   useEffect(() => {
     getMyTeam();
   }, [getMyTeam]);
 
+  //init state for confirm delete team
   const [show, setShow] = useState(false);
   const handleClose = () => {
     deleteTeam(team._id);
@@ -29,7 +32,14 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
   };
   const handleShow = () => setShow(true);
 
-  console.log(team);
+  //init state for add teammate
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   return loading ? (
     <Spinner />
@@ -43,6 +53,8 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
         onCancel={handleClose}
         onConfirm={handleClose}
       />
+
+      <ModalAdd show={showModal} close={handleCloseModal} />
 
       <Container>
         <Header
@@ -73,6 +85,8 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
             </Link>
           </Segment>
         ) : (
+          <div>
+           <Message  negative content="some error" />
           <Card fluid color="green">
             <Card.Content>
               <Card.Header>Название команды: {team.name}</Card.Header>
@@ -126,6 +140,7 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
                 </Link>
 
                 <Button
+                  onClick={handleShowModal}
                   color="green"
                   icon="add user"
                   labelPosition="left"
@@ -145,7 +160,9 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team } }) => {
               meta={"Дата образования: " + formatDate(team.date)}
             ></Card.Content>
           </Card>
+          </div>
         )}
+        <Message  negative content="some error" />
       </Container>
     </div>
   );
