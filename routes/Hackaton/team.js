@@ -118,12 +118,10 @@ router.put(
       });
       //check if team exist
       if (team) {
-        res
-          .status(400)
-          .json({
-            msg: "Пользователь уже зарегистрирован в команде",
-            color: "red",
-          });
+        res.status(400).json({
+          msg: "Пользователь уже зарегистрирован в команде",
+          color: "red",
+        });
       } else {
         //find team by id
         const teamMate = await Teams.findById(id);
@@ -166,15 +164,15 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-//@route DELETE api/hack/teams/team-mate
+//@route DELETE api/hack/teams/mate/id
 //@desc delete teammate
-router.delete("/team-mate", auth, async (req, res) => {
+router.delete("/mate/:id", auth, async (req, res) => {
   try {
     //get data from req
-    const { id } = req.body;
+    const id = req.params.id;
     //find user team
     let team = await Teams.findOne({
-      team: { $elemMatch: { user: user._id } },
+      team: { $elemMatch: { user: id } },
     });
     //delete teammate from team
     const index = team.team.map((item) => item.id).indexOf(id);
@@ -182,10 +180,10 @@ router.delete("/team-mate", auth, async (req, res) => {
     //save team obj
     await team.save();
     //response to client
-    res.status(202).json({ msg: "Участник удален" });
+    res.status(202).json({ msg: "Участник удален", color: "green" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ msg: "Ошибка сервера" });
+    res.status(500).json({ msg: "Ошибка сервера", color: "red" });
   }
 });
 

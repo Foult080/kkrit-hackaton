@@ -14,21 +14,30 @@ import {
   Confirm,
   Message,
 } from "semantic-ui-react";
-import { getMyTeam, deleteTeam } from "../../Actions/team";
+import { getMyTeam, deleteTeam, deleteTeamMate } from "../../Actions/team";
 import formatDate from "../../Utils/formatDate";
 import Spinner from "../Layout/Spinner";
 import ModalAdd from "./ModalAdd";
 
-const Team = ({ deleteTeam, getMyTeam, team: { loading, team }, errors }) => {
+const Team = ({
+  deleteTeam,
+  deleteTeamMate,
+  getMyTeam,
+  team: { loading, team },
+  errors,
+}) => {
   useEffect(() => {
     getMyTeam();
   }, [getMyTeam]);
 
   //init state for confirm delete team
-  const [show, setShow] = useState(false);
+  const [showTeam, setShow] = useState(false);
   const handleClose = () => {
-    deleteTeam(team._id);
     setShow(false);
+  };
+  const handleConfirmTeam = () => {
+    setShow(false);
+    deleteTeam(team._id);
   };
   const handleShow = () => setShow(true);
 
@@ -41,19 +50,17 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team }, errors }) => {
     setShowModal(true);
   };
 
-  console.log(errors);
-
   return loading ? (
     <Spinner />
   ) : (
     <div style={{ height: "100vh" }}>
       <Confirm
-        open={show}
+        open={showTeam}
         content="Вы действительно хотите удалить команду?"
         confirmButton="Удалить команду"
         cancelButton="Отмена"
         onCancel={handleClose}
-        onConfirm={handleClose}
+        onConfirm={handleConfirmTeam}
       />
 
       <Container>
@@ -91,7 +98,6 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team }, errors }) => {
                 <Message key={item.id} color={item.type} content={item.msg} />
               ))}
 
-            
             <ModalAdd show={showModal} id={team._id} close={handleCloseModal} />
 
             <Card fluid color="green">
@@ -128,7 +134,11 @@ const Team = ({ deleteTeam, getMyTeam, team: { loading, team }, errors }) => {
                               </Feed.Summary>
                             </GridColumn>
                             <GridColumn textAlign="center" width={4}>
-                              <Button color="red" icon="trash alternate" />
+                              <Button
+                                color="red"
+                                icon="trash alternate"
+                                onClick={() => deleteTeamMate(item.user._id)}
+                              />
                             </GridColumn>
                           </Grid.Row>
                         </Grid>
@@ -178,6 +188,7 @@ Team.propTypes = {
   team: PropTypes.object.isRequired,
   getMyTeam: PropTypes.func.isRequired,
   deleteTeam: PropTypes.func.isRequired,
+  deleteTeamMate: PropTypes.func.isRequired,
   errors: PropTypes.array.isRequired,
 };
 
@@ -186,4 +197,6 @@ const mapState = (state) => ({
   errors: state.alert,
 });
 
-export default connect(mapState, { getMyTeam, deleteTeam })(Team);
+export default connect(mapState, { getMyTeam, deleteTeam, deleteTeamMate })(
+  Team
+);

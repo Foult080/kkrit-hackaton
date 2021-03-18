@@ -16,7 +16,6 @@ const ModalAdd = ({ show, close, id, addTeamMate }) => {
     },
   });
 
-  console.log(id);
   return (
     <div>
       <Modal open={show} onClose={close} size="mini">
