@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAlert } from "./alert";
 import { GET_TEAM, UPDATE_TEAM, ERROR_TEAM, DELETE_TEAM } from "./types";
 
 //config for axios
@@ -58,5 +59,12 @@ export const deleteTeam = (id) => async (dispatch) => {
 //add new team-mate
 export const addTeamMate = (values) => async (dispatch) => {
   const body = JSON.stringify(values);
-  console.log(body);
-}
+  console.log(values, body);
+  try {
+    const res = await axios.put("/api/hack/teams/add", body, config);
+    dispatch(setAlert(res.data.msg, res.data.color));
+    dispatch(getMyTeam());
+  } catch (err) {
+    dispatch(setAlert(err.response.data.msg, err.response.data.color));
+  }
+};

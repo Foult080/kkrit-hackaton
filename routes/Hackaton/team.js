@@ -119,21 +119,28 @@ router.put(
       //check if team exist
       if (team) {
         res
-          .status(401)
-          .json({ msg: "Пользователь уже зарегистрирован в команде" });
+          .status(400)
+          .json({
+            msg: "Пользователь уже зарегистрирован в команде",
+            color: "red",
+          });
       } else {
         //find team by id
         const teamMate = await Teams.findById(id);
         //check team count
-        if (teamMate.team.length() > 4) {
-          res.status(201).json({ msg: "Превышен лимит участников команды" });
+        if (teamMate.team.length > 4) {
+          res
+            .status(400)
+            .json({ msg: "Превышен лимит участников команды", color: "red" });
         } else {
           //add new teammate
           teamMate.team.push({ user: user.id });
           //save team obj
           await teamMate.save();
           //send response to client
-          res.status(200).json({ msg: "Пользователь добавлен в команду" });
+          res
+            .status(200)
+            .json({ msg: "Пользователь добавлен в команду", color: "green" });
         }
       }
     } catch (err) {

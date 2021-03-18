@@ -5,16 +5,18 @@ import { useFormik } from "formik";
 import { Button, Modal, Form } from "semantic-ui-react";
 import { addTeamMate } from "../../Actions/team";
 
-const ModalAdd = ({ show, close, addTeamMate }) => {
-
+const ModalAdd = ({ show, close, id, addTeamMate }) => {
   const formik = useFormik({
     initialValues: { email: "" },
     onSubmit: (values) => {
-      console.log(values);
+      values.id = id;
       addTeamMate(values);
+      formik.values.email = "";
+      close();
     },
   });
 
+  console.log(id);
   return (
     <div>
       <Modal open={show} onClose={close} size="mini">

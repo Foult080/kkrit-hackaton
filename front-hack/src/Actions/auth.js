@@ -48,7 +48,7 @@ export const register = (values) => async (dispatch) => {
     dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
-    errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    errors.forEach((error) => dispatch(setAlert(error.msg, "negative")));
     dispatch({
       type: REGISTER_FAIL,
     });
