@@ -42,6 +42,10 @@ router.post(
 //@route GET api/hack/tasks
 //@desc get all tasks
 router.get("/", auth, async (req, res) => {
+  //check role
+  if (req.user.role !== "admin") {
+    return res.status(401).json({ msg: "Нет доступа" });
+  }
   try {
     //gen all records
     let tasks = await Tasks.find();
