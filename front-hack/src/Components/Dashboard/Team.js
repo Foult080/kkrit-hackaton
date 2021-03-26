@@ -104,7 +104,7 @@ const Team = ({
               <Card.Content>
                 <Card.Header>Название команды: {team.name}</Card.Header>
               </Card.Content>
-              {team.hackaton === null ? (
+              {team.hackaton.hack === null ? (
                 <Card.Content>
                   <Card.Header>Команда не учавствует в конкурсе</Card.Header>
                 </Card.Content>

@@ -24,16 +24,15 @@ const CreateTeam = ({
 
   const values = { name: "", hack: null, task: null, link: "" };
   if (team) {
-    values.name = team.name;
-    values.hack = team.hackaton.hack._id;
-    values.task = team.hackaton.task._id;
-    values.link = team.hackaton.link;
+    if (team.name) values.name = team.name;
+    if (team.hack) values.hack = team.hackaton.hack._id;
+    if (team.task) values.task = team.hackaton.task._id;
+    if (team.link) values.link = team.hackaton.link;
   }
-
   const formik = useFormik({
     initialValues: values,
     onSubmit: (values) => {
-      values.hack = hack._id;
+      if (hack) values.hack = hack._id;
       createTeam(values);
       history.push("/dashboard");
     },

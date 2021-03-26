@@ -15,7 +15,6 @@ const TeamsSchema = new mongoose.Schema({
     },
     link: {
       type: String,
-      default: "ссылка не добавлена",
     },
   },
   team: [

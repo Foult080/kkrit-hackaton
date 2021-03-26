@@ -28,6 +28,7 @@ export const getMyTeam = () => async (dispatch) => {
 //create or update team
 export const createTeam = (values) => async (dispatch) => {
   const body = JSON.stringify(values);
+  console.log(body);
   try {
     const res = await axios.post("/api/hack/teams/", body, config);
     dispatch({
