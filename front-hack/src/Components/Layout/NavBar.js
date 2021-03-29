@@ -4,37 +4,40 @@ import PropTypes from "prop-types";
 import { logOut } from "../../Actions/auth";
 import { Button, Container, Menu, Icon } from "semantic-ui-react";
 import logo from "./imgs/logo.png";
+import { Link } from "react-router-dom";
 
 function NavBar({ auth: { loading, isAuth }, logOut }) {
   const authLinks = (
     <Fragment>
       <Menu.Item position="right">
-        <Button animated="fade" color="green" as="a" href="/dashboard">
-          <Button.Content visible>
-            <Icon name="user circle" />
-            Личный Кабинет
-          </Button.Content>
-          <Button.Content hidden>
-            <Icon name="user circle" size="large" />
-          </Button.Content>
-        </Button>
+        <Link to="/dashboard">
+          <Button animated="fade" color="green">
+            <Button.Content visible>
+              <Icon name="user circle" />
+              Личный Кабинет
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="user circle" size="large" />
+            </Button.Content>
+          </Button>
+        </Link>
 
-        <Button
-          animated="fade"
-          as="a"
-          href="/login"
-          style={{ marginLeft: "0.5em" }}
-          color="red"
-          onClick={logOut}
-        >
-          <Button.Content visible>
-            <Icon name="sign-out" />
-            Выйти
-          </Button.Content>
-          <Button.Content hidden>
-            <Icon name="sign-out" size="large" />
-          </Button.Content>
-        </Button>
+        <Link to="/">
+          <Button
+            animated="fade"
+            style={{ marginLeft: "0.5em" }}
+            color="red"
+            onClick={logOut}
+          >
+            <Button.Content visible>
+              <Icon name="sign-out" />
+              Выйти
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="sign-out" size="large" />
+            </Button.Content>
+          </Button>
+        </Link>
       </Menu.Item>
     </Fragment>
   );
@@ -42,31 +45,28 @@ function NavBar({ auth: { loading, isAuth }, logOut }) {
   const guesLinks = (
     <Fragment>
       <Menu.Item position="right">
-        <Button animated="fade" color="green" as="a" href="/signin">
-          <Button.Content visible>
-            <Icon name="user circle" />
-            Зарегистрироваться
-          </Button.Content>
-          <Button.Content hidden>
-            <Icon name="user circle" size="large" />
-          </Button.Content>
-        </Button>
-
-        <Button
-          animated="fade"
-          as="a"
-          href="/login"
-          style={{ marginLeft: "0.5em" }}
-          color="blue"
-        >
-          <Button.Content visible>
-            <Icon name="sign-in" />
-            Войти
-          </Button.Content>
-          <Button.Content hidden>
-            <Icon name="sign in alternate" size="large" />
-          </Button.Content>
-        </Button>
+        <Link to="/signin">
+          <Button animated="fade" color="green">
+            <Button.Content visible>
+              <Icon name="user circle" />
+              Зарегистрироваться
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="user circle" size="large" />
+            </Button.Content>
+          </Button>
+        </Link>
+        <Link to="/login">
+          <Button animated="fade" style={{ marginLeft: "0.5em" }} color="blue">
+            <Button.Content visible>
+              <Icon name="sign-in" />
+              Войти
+            </Button.Content>
+            <Button.Content hidden>
+              <Icon name="sign in alternate" size="large" />
+            </Button.Content>
+          </Button>
+        </Link>
       </Menu.Item>
     </Fragment>
   );

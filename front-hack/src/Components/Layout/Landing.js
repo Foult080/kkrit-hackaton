@@ -12,6 +12,7 @@ import {
 import team from "./imgs/team.svg";
 import signin from "./imgs/sign_in.svg";
 import winner from "./imgs/winner.svg";
+import { Link } from "react-router-dom";
 
 const Landing = () => (
   <Fragment>
@@ -95,7 +96,8 @@ const Landing = () => (
           fontWeight: "bold",
         }}
       />
-      <Button animated="fade" color="green" as="a" size="huge">
+      <Link to="/signin">
+      <Button animated="fade" color="green" size="huge">
         <Button.Content visible>
           <Icon name="user circle" />
           Зарегистрироваться
@@ -104,6 +106,7 @@ const Landing = () => (
           <Icon name="user plus" size="large" />
         </Button.Content>
       </Button>
+      </Link>
     </Container>
   </Fragment>
 );

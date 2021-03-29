@@ -25,7 +25,7 @@ const Hack = ({ getCurrent, hack: { loading, hack } }) => {
       {hack === null ? (
         <Header
           as="h3"
-          content="Вы не в команде"
+          content="На данный момент конкурсов нет"
           textAlign="center"
           style={{
             fontSize: "2em",

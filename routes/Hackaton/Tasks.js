@@ -31,13 +31,27 @@ router.post(
       //save task
       await taks.save();
       //send mesg to client
-      return res.json({ msg: "Задание добавлено" });
+      return res.json({ msg: "Задание добавлено", color: "green" });
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });
     }
   }
 );
+
+//route PUT /api/hack/tasks
+//@desc update task
+router.put("/", auth, async (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.status(401).json({ msg: "Нет доступа" });
+  }
+  try {
+    
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: "Ошибка сервера" });
+  }
+});
 
 //@route GET api/hack/tasks
 //@desc get all tasks

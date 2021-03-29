@@ -109,7 +109,10 @@ router.put(
     //check email in users
     const user = await User.findOne({ email: email });
     if (!user) {
-      res.status(404).json({ msg: "Пользователь не зарегистрирован" });
+      res.status(404).json({
+        msg: "Пользователь не зарегистрирован",
+        color: "red",
+      });
     }
     try {
       //get team obj

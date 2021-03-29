@@ -50,7 +50,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
           },
           {
             menuItem: {
-              key: "hackList",
+              key: "archive",
               icon: "archive",
               content: "Архив хакатонов",
             },
