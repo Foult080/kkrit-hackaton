@@ -99,7 +99,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
   }
 
   return (
-    <Container style={{ height: "100vh", marginTop: "80px" }}>
+    <Container style={{ minHeight: "100vh", marginTop: "80px" }}>
       {user && !loading ? (
         <Tab
           menu={{ fluid: true, vertical: true }}

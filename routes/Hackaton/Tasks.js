@@ -25,13 +25,21 @@ router.post(
     }
     try {
       //get data from req
-      const { title, description } = req.body;
+      const { title, description, id } = req.body;
+      if (id) {
+        let task =  await Tasks.findById(id);
+        task.title = title;
+        task.description = description;
+        await task.save();
+        return res.json({ msg: "Задание обновлено", color: "green" });
+      } else {
       //add task obj
       const taks = new Tasks({ title, description });
       //save task
       await taks.save();
       //send mesg to client
       return res.json({ msg: "Задание добавлено", color: "green" });
+      }
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });

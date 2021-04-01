@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { addTask } from "../../../Actions/tasks";
 import { useFormik } from "formik";
 import { Button, Modal, Form } from "semantic-ui-react";
 
-const initial = { title: "", description: "" };
+const values = { title: "", description: "", id: null };
 
-const AddModalTask = ({ show, close, id }) => {
+const AddModalTask = ({ show, close, task, addTask }) => {
+  if (task) {
+    values.title = task.title;
+    values.description = task.description;
+    values.id = task._id;
+  }
+
   const formik = useFormik({
-    initialValues: initial,
+    initialValues: values,
     onSubmit: (values) => {
-      values.id = id;
-      formik.values = initial;
-      console.log(values);
+      addTask(values);
+      formik.values = { title: "", description: "", id: null };
       close();
     },
   });
@@ -20,9 +26,13 @@ const AddModalTask = ({ show, close, id }) => {
   return (
     <div>
       <Modal open={show} onClose={close} size="small">
-        <Modal.Header>Добавить участника</Modal.Header>
+        {task == null ? (
+          <Modal.Header>Добавить задание</Modal.Header>
+        ) : (
+          <Modal.Header>Редактировать задание</Modal.Header>
+        )}
         <Modal.Content>
-          <Form>
+          <Form onSubmit={formik.handleSubmit}>
             <Form.Input
               fluid
               label="Укажите название для задания"
@@ -35,7 +45,6 @@ const AddModalTask = ({ show, close, id }) => {
               required
             />
             <Form.TextArea
-            
               label="Укажите описание для задания"
               name="description"
               onChange={formik.handleChange}
@@ -49,7 +58,7 @@ const AddModalTask = ({ show, close, id }) => {
           <Button negative onClick={close}>
             Отмена
           </Button>
-          <Button positive onClick={formik.handleSubmit}>
+          <Button positive type="submit" onClick={formik.handleSubmit}>
             Добавить
           </Button>
         </Modal.Actions>
@@ -61,6 +70,7 @@ const AddModalTask = ({ show, close, id }) => {
 AddModalTask.propTypes = {
   show: PropTypes.bool.isRequired,
   close: PropTypes.func.isRequired,
+  addTask: PropTypes.func.isRequired,
 };
 
-export default connect(null)(AddModalTask);
+export default connect(null, { addTask })(AddModalTask);
