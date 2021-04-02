@@ -18,6 +18,7 @@ import Landing from "./Components/Layout/Landing";
 import NavBar from "./Components/Layout/NavBar";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import CreateTeam from "./Components/Dashboard/CreateTeam";
+import AddHack from "./Components/Dashboard/Admins/Addhack";
 
 const App = () => {
   useEffect(() => {
@@ -37,6 +38,7 @@ const App = () => {
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/create-team" component={CreateTeam} />
             <PrivateRoute exact path="/edit-team" component={CreateTeam} />
+            <PrivateRoute exact path="/add-hack" component={AddHack} />
           </Switch>
         </section>
         <Footer />

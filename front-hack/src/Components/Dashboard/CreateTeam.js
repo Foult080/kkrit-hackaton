@@ -51,7 +51,9 @@ const CreateTeam = ({
   }
 
   return loading ? (
-    <Spinner />
+    <div style={{ minHeight: "100vh" }}>
+      <Spinner />
+    </div>
   ) : (
     <Grid textAlign="center" verticalAlign="middle" style={{ height: "100vh" }}>
       <Grid.Column style={{ maxWidth: 650 }}>

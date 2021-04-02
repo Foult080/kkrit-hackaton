@@ -9,7 +9,7 @@ const Spinner = () => (
       style={{
         width: "250px",
         margin: "auto",
-        marginTop: "2.5em",
+        marginTop: "3em",
         display: "block",
       }}
       alt="Loading..."
