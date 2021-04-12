@@ -22,7 +22,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
                 <Header textAlign="center" as="h3" content={user.name} />
               </Menu.Item>
             ),
-            render: () => <ArchiveHack />,
+            render: () => <ListHack />,
           },
           {
             menuItem: {
@@ -44,7 +44,7 @@ const Dashboard = ({ auth: { user, loading } }) => {
             menuItem: {
               key: "hackList",
               icon: "list alternate outline",
-              content: "Список Конкурсов",
+              content: "Текущий конкурс",
             },
             render: () => <ListHack />,
           },

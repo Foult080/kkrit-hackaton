@@ -23,9 +23,14 @@ const AddModalTask = ({ show, close, task, addTask }) => {
     },
   });
 
+  const closeModal = () => {
+    formik.values = { title: "", description: "", id: null };
+    close();
+  };
+
   return (
     <div>
-      <Modal open={show} onClose={close} size="small">
+      <Modal open={show} onClose={closeModal} size="small">
         {task == null ? (
           <Modal.Header>Добавить задание</Modal.Header>
         ) : (
@@ -55,7 +60,7 @@ const AddModalTask = ({ show, close, task, addTask }) => {
           </Form>
         </Modal.Content>
         <Modal.Actions>
-          <Button negative onClick={close}>
+          <Button negative onClick={closeModal}>
             Отмена
           </Button>
           <Button positive type="submit" onClick={formik.handleSubmit}>

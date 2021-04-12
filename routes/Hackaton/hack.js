@@ -22,7 +22,7 @@ router.post(
     }
     //check role
     if (req.user.role !== "admin") {
-      return res.status(401).json({ msg: "Нет доступа" });
+      return res.status(401).json({ msg: "Нет доступа", color: "red" });
     }
     try {
       //get data from req
@@ -31,7 +31,7 @@ router.post(
       //save data
       await hack.save();
       //response to client
-      return res.json(hack);
+      return res.json({ msg: "Хакатон добавлен", color: "green" });
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });
@@ -48,7 +48,7 @@ router.put("/:id", auth, async (req, res) => {
   }
   try {
     //get data from req
-    const {name, period, tasks} = req.body;
+    const { name, period, tasks } = req.body;
     //make obj with fields
     let fields = {};
     if (name) fields.name = name;

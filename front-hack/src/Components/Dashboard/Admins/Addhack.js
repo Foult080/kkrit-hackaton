@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { getTasks } from "../../../Actions/tasks";
+import { addHack } from "../../../Actions/hackatons";
 import Spinner from "../../Layout/Spinner";
 import { Grid, Header, Form, Button } from "semantic-ui-react";
 
-const state = { name: "", period: "", task1: "", task: [] };
+const state = { name: "", period: "", task1: "", task2: "", task3: "" };
 
-const Addhack = ({ getTasks, task: { loading, tasks } }) => {
+const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
   useEffect(() => {
     getTasks();
   }, [getTasks]);
@@ -17,13 +18,10 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
   const formik = useFormik({
     initialValues: state,
     onSubmit: (values) => {
-      console.log(values);
+      addHack(values);
+      history.push("/dashboard");
     },
   });
-
-  const addTask = (id) => {
-    formik.values.task.push(id);
-  };
 
   let options = [];
   tasks.map((item) => {
@@ -74,7 +72,6 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
               placeholder="23 марта - 30 марта"
               onChange={formik.handleChange}
               value={formik.values.period}
-              autoFocus
               required
             />
             <Form.Select
@@ -82,12 +79,15 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
               label="Выберете задание для конкурса"
               selection
               options={options}
-              onChange={(e) => addTask(e.target.getAttribute("_id"))}
+              onChange={(e) =>
+                formik.setFieldValue("task1", e.target.getAttribute("_id"))
+              }
               name="task1"
               id="task1"
               value={formik.values.task1}
               placeholder="Выберете задание"
               selection
+              required
             />
             <Form.Select
               clearable
@@ -100,6 +100,7 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
               value={formik.values.task2}
               placeholder="Выберете задание"
               selection
+              required
             />
             <Form.Select
               clearable
@@ -112,13 +113,7 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
               value={formik.values.task3}
               placeholder="Выберете задание"
               selection
-            />
-            <Form.Select
-              clearable
-              selection
-              options={options}
-              placeholder="Выберете задание"
-              selection
+              required
             />
             <Button color="green" size="large" type="submit">
               Сохранить
@@ -138,10 +133,11 @@ const Addhack = ({ getTasks, task: { loading, tasks } }) => {
 Addhack.propTypes = {
   task: PropTypes.object.isRequired,
   getTasks: PropTypes.func.isRequired,
+  addHack: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   task: state.task,
 });
 
-export default connect(mapStateToProps, { getTasks })(Addhack);
+export default connect(mapStateToProps, { getTasks, addHack })(Addhack);
