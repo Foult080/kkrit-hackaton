@@ -9,7 +9,6 @@ import {
   Feed,
   Grid,
   GridColumn,
-  Button,
 } from "semantic-ui-react";
 
 const ListTeams = ({ getAllTeams, teams: { loading, teams } }) => {

@@ -86,7 +86,6 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               id="task1"
               value={formik.values.task1}
               placeholder="Выберете задание"
-              selection
               required
             />
             <Form.Select
@@ -99,7 +98,6 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               id="task2"
               value={formik.values.task2}
               placeholder="Выберете задание"
-              selection
               required
             />
             <Form.Select
@@ -112,7 +110,6 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               id="task3"
               value={formik.values.task3}
               placeholder="Выберете задание"
-              selection
               required
             />
             <Button color="green" size="large" type="submit">

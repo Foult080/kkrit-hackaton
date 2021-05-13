@@ -83,7 +83,7 @@ const Landing = () => (
 
     <Container
       textAlign="center"
-      style={{ marginTop: "1em", marginTop: "2em", marginBottom: "2em" }}
+      style={{ marginTop: "2em", marginBottom: "2em" }}
     >
       <Image src={winner} size="big" centered />
       <Header

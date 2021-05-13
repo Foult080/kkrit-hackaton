@@ -20,7 +20,7 @@ const ListTasks = ({ getTasks, task: { loading, tasks }, errors }) => {
 
   const [task, setTask] = useState(null);
   const handler = (e) => {
-    let item = tasks.find((item) => item._id == e.target.value);
+    let item = tasks.find((item) => item._id === e.target.value);
     setTask(item);
     showHandler();
   };

@@ -102,7 +102,6 @@ const CreateTeam = ({
                 name="task"
                 value={formik.values.task}
                 placeholder="Выберете задание"
-                selection
               />
               <Form.Input
                 fluid

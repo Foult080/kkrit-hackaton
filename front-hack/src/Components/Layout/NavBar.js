@@ -75,7 +75,7 @@ function NavBar({ auth: { loading, isAuth }, logOut }) {
     <Menu stackable size="huge" fixed="top">
       <Container>
         <Menu.Item as="a" href="/">
-          <img src={logo} />
+          <img src={logo} alt="logo" />
           <p style={{ marginLeft: "0.5rem", fontWeight: "600" }}>
             KKRIT-Хакатон
           </p>
