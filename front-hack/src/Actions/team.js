@@ -1,6 +1,12 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-import { GET_TEAM, UPDATE_TEAM, ERROR_TEAM, DELETE_TEAM } from "./types";
+import {
+  GET_TEAM,
+  UPDATE_TEAM,
+  ERROR_TEAM,
+  DELETE_TEAM,
+  GET_TEAMS,
+} from "./types";
 
 //config for axios
 const config = {
@@ -68,11 +74,25 @@ export const addTeamMate = (values) => async (dispatch) => {
   }
 };
 
+//delete teammate from team
 export const deleteTeamMate = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/hack/teams/mate/${id}`);
     dispatch(setAlert(res.data.msg, res.data.color));
     dispatch(getMyTeam());
+  } catch (err) {
+    dispatch({
+      type: ERROR_TEAM,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//get all teams
+export const getAllTeams = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/hack/teams/all");
+    dispatch({ type: GET_TEAMS, payload: res.data });
   } catch (err) {
     dispatch({
       type: ERROR_TEAM,

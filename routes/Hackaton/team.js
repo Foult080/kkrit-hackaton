@@ -55,17 +55,17 @@ router.post(
 );
 
 //@route GET api/hack/teams/all
-//@desc get all teams for admon panel
+//@desc get all teams for adminn panel
 router.get("/all", auth, async (req, res) => {
   //check role
   if (req.user.role !== "admin") {
     return res.status(401).json({ msg: "Нет доступа" });
   }
   try {
-    let team = await Teams.findOne({ capt: req.user.id })
+    let team = await Teams.find()
       .populate("hackaton.hack", "name period")
       .populate("hackaton.task", "title description")
-      .populate("team.user", "name email");
+      .populate("team.user", "name email avatar");
     if (team) res.send(team);
     else return res.status(404).json({ msg: "Команда отсутсвует" });
   } catch (err) {

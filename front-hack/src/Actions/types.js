@@ -15,6 +15,7 @@ export const UPDATE_TEAM = "UPDATE_TEAM";
 export const DELETE_TEAM = "DELETE_TEAM";
 export const ERROR_TEAM = "ERROR_TEAM";
 export const GET_TEAM = "GET_TEAM";
+export const GET_TEAMS = "GET_TEAMS";
 //hackatons
 export const ERROR_HACK = "ERROR_HACK";
 export const GET_HACK = "GET_HACK";

@@ -3,11 +3,13 @@ import {
   GET_TEAM,
   DELETE_TEAM,
   ERROR_TEAM,
+  GET_TEAMS,
 } from "../Actions/types";
 
 const initialState = {
   loading: true,
   team: null,
+  teams: [],
   error: {},
 };
 
@@ -31,6 +33,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         team: null,
+      };
+    case GET_TEAMS:
+      return {
+        ...state,
+        teams: payload,
+        loading: false,
       };
     default:
       return state;
