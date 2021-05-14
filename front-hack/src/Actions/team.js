@@ -52,7 +52,7 @@ export const createTeam = (values) => async (dispatch) => {
 //delete team
 export const deleteTeam = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/hack/teams/${id}`);
+    await axios.delete(`/api/hack/teams/${id}`);
     dispatch({ type: DELETE_TEAM });
   } catch (err) {
     dispatch({

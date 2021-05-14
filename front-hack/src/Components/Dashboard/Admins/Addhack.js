@@ -25,7 +25,7 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
 
   let options = [];
   tasks.map((item) => {
-    options.push({
+    return options.push({
       text: item.title,
       value: item._id,
       _id: item._id,

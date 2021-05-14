@@ -178,7 +178,7 @@ router.delete("/mate/:id", auth, async (req, res) => {
       team: { $elemMatch: { user: id } },
     });
     //delete teammate from team
-    const index = team.team.map((item) => item.id).indexOf(id);
+    const index = team.team.map((item) => item.user).indexOf(id);
     team.team.splice(index, 1);
     //save team obj
     await team.save();

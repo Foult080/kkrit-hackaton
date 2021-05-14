@@ -25,9 +25,9 @@ const CreateTeam = ({
   const values = { name: "", hack: null, task: null, link: "" };
   if (team) {
     if (team.name) values.name = team.name;
-    if (team.hack) values.hack = team.hackaton.hack._id;
-    if (team.task) values.task = team.hackaton.task._id;
-    if (team.link) values.link = team.hackaton.link;
+    if (team.hackaton.hack) values.hack = team.hackaton.hack._id;
+    if (team.hackaton.task) values.task = team.hackaton.task._id;
+    if (team.hackaton.link) values.link = team.hackaton.link;
   }
   const formik = useFormik({
     initialValues: values,
@@ -41,7 +41,7 @@ const CreateTeam = ({
   let options = [];
   if (hack) {
     hack.tasks.map((item) => {
-      options.push({
+      return options.push({
         key: item._id,
         text: item.title,
         value: item._id,
