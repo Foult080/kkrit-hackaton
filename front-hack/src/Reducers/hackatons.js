@@ -7,7 +7,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
+const hackReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case GET_HACK:
@@ -31,4 +31,6 @@ export default function (state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default hackReducer;

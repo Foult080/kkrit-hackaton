@@ -6,7 +6,7 @@ const initialState = {
   error: {},
 };
 
-export default function (state = initialState, action) {
+const taskReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case GET_TASKS:
@@ -25,3 +25,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default taskReducer;
