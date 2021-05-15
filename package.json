@@ -7,12 +7,12 @@
     "start": "node index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front-app && npm run build --prefix front-app"
+    "client": "npm start --prefix front-hack",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front-hack && npm run build --prefix front-hack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Foult080/kras-krit.git"
+    "url": "git+https://github.com/Foult080/kkrit-hackaton.git"
   },
   "keywords": [
     "web",
@@ -23,9 +23,9 @@
   "author": "foult080",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Foult080/kras-krit.git/issues"
+    "url": "https://github.com/Foult080/kkrit-hackaton.git/issues"
   },
-  "homepage": "https://github.com/Foult080/kras-krit.git#readme",
+  "homepage": "https://github.com/Foult080/kkrit-hackaton.git#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "config": "^3.3.3",
