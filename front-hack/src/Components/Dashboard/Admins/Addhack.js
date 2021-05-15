@@ -80,7 +80,7 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               selection
               options={options}
               onChange={(e) =>
-                formik.setFieldValue("task1", e.target.getAttribute("_id"))
+                formik.setFieldValue("task1", e.target.parentElement.getAttribute("_id"))
               }
               name="task1"
               id="task1"
@@ -93,7 +93,7 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               selection
               options={options}
               onChange={(e) =>
-                formik.setFieldValue("task2", e.target.getAttribute("_id"))
+                formik.setFieldValue("task2", e.target.parentElement.getAttribute("_id"))
               }
               id="task2"
               value={formik.values.task2}
@@ -105,7 +105,7 @@ const Addhack = ({ getTasks, addHack, task: { loading, tasks }, history }) => {
               selection
               options={options}
               onChange={(e) =>
-                formik.setFieldValue("task3", e.target.getAttribute("_id"))
+                formik.setFieldValue("task3", e.target.parentElement.getAttribute("_id"))
               }
               id="task3"
               value={formik.values.task3}

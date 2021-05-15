@@ -50,6 +50,7 @@ export const addHack = (values) => async (dispatch) => {
   try {
     const res = await axios.post("/api/hack/", body, config);
     dispatch(setAlert(res.data.msg, res.data.color));
+    dispatch(getCurrent());
   } catch (error) {
     const err = error.response;
     dispatch({

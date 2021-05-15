@@ -40,8 +40,8 @@ const CreateTeam = ({
 
   let options = [];
   if (hack) {
-    hack.tasks.map((item) => {
-      return options.push({
+    hack.tasks.forEach((item) => {
+      options.push({
         key: item._id,
         text: item.title,
         value: item._id,
@@ -94,10 +94,9 @@ const CreateTeam = ({
               <p>{hack.period}</p>
               <Form.Select
                 clearable
-                selection
                 options={options}
                 onChange={(e) =>
-                  formik.setFieldValue("task", e.target.getAttribute("name"))
+                  formik.setFieldValue("task", e.target.parentElement.getAttribute("name"))
                 }
                 name="task"
                 value={formik.values.task}

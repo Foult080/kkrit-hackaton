@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { useFormik } from "formik";
 import { Button, Form, Grid, Header, Message, Icon } from "semantic-ui-react";
 import { login } from "../../Actions/auth";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 const Login = ({ login, isAuth, errors }) => {
   const formik = useFormik({
@@ -71,7 +71,7 @@ const Login = ({ login, isAuth, errors }) => {
           </Form>
           <Message attached="bottom" info>
             <Icon name="help" />
-            Нет учетной записи?&nbsp;<a href="sigin">Зарегистрируйтесь</a>.
+            Нет учетной записи?&nbsp;<Link to="/signin">Зарегистрируйтесь</Link>
           </Message>
         </Grid.Column>
       </Grid>
