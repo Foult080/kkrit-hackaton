@@ -3,20 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllTeams } from "../../../Actions/team";
 import Spinner from "../../Layout/Spinner";
-import {
-  Header,
-  Card,
-  Feed,
-  Grid,
-  GridColumn,
-} from "semantic-ui-react";
+import { Header, Card, Feed, Grid, GridColumn } from "semantic-ui-react";
 
 const ListTeams = ({ getAllTeams, teams: { loading, teams } }) => {
   useEffect(() => {
     getAllTeams();
   }, [getAllTeams]);
-
-  console.log(teams);
 
   return loading && teams === null ? (
     <Spinner />

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ARCHIVE, GET_HACK, ERROR_HACK } from "./types";
+import { GET_ARCHIVE, GET_HACK, ERROR_HACK, CLOSE_HACK } from "./types";
 import { setAlert } from "./alert";
 
 const config = {
@@ -50,6 +50,21 @@ export const addHack = (values) => async (dispatch) => {
   try {
     const res = await axios.post("/api/hack/", body, config);
     dispatch(setAlert(res.data.msg, res.data.color));
+  } catch (error) {
+    const err = error.response;
+    dispatch({
+      type: ERROR_HACK,
+      payload: { msg: err.statusText, status: err.status },
+    });
+  }
+};
+
+//close hack and update data in teams
+export const closeHack = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/hack/status/${id}`);
+    dispatch(setAlert(res.data.msg, res.data.color));
+    dispatch({ type: CLOSE_HACK });
   } catch (error) {
     const err = error.response;
     dispatch({

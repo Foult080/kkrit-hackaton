@@ -24,10 +24,10 @@ app.use('/api/hack/teams', require("./routes/Hackaton/team"));
 app.use('/api/hack', require('./routes/Hackaton/hack'));
 
 //resolve static folder for react app
-app.use(express.static("_front-app/build"));
+app.use(express.static("front-hack/build"));
 
 app.get("*", (req,res) => {
-    res.sendFile(path.resolve(__dirname, '_front-app', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'front-hack', 'build', 'index.html'));
 });
 
 //initial port to start

@@ -1,4 +1,9 @@
-import { GET_HACK, GET_ARCHIVE, ERROR_HACK } from "../Actions//types";
+import {
+  GET_HACK,
+  GET_ARCHIVE,
+  ERROR_HACK,
+  CLOSE_HACK,
+} from "../Actions//types";
 
 const initialState = {
   loading: true,
@@ -26,6 +31,12 @@ const hackReducer = (state = initialState, action) => {
       return {
         ...state,
         error: payload,
+        loading: false,
+      };
+    case CLOSE_HACK:
+      return {
+        ...state,
+        hack: null,
         loading: false,
       };
     default:

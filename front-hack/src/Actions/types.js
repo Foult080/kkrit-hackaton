@@ -20,6 +20,7 @@ export const GET_TEAMS = "GET_TEAMS";
 export const ERROR_HACK = "ERROR_HACK";
 export const GET_HACK = "GET_HACK";
 export const GET_ARCHIVE = "GET_ARCHIVE";
+export const CLOSE_HACK = "CLOSE_HACK";
 //tasks
 export const GET_TASKS = "GET_TASKS";
 export const ERROR_TASK = "ERROR_TASK";

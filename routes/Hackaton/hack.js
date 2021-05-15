@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const Hacks = require("../../models/Hackaton/Hacks");
+const Teams = require("../../models/Hackaton/Teams");
 
 //@route POST api/hack/
 //@desc create new hackaton
@@ -92,7 +93,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-//@route PUT api/hack/:id
+//@route PUT api/hack/status
 //@desc change status hackaton
 router.put(
   "/status/:id",
@@ -106,13 +107,21 @@ router.put(
     try {
       //get hackaton by id
       let hack = await Hacks.findById(req.params.id);
-      //get status from req
-      const status = req.body.status;
       //change status
-      hack.status = status;
+      hack.status = "closed";
       hack.save();
+      //clear hack from teams
+      await Teams.updateMany(null, {
+        $set: { hackaton: { hack: null, task: null, link: "" } },
+        upsert: true,
+      });
       //response to user
-      res.json(hack);
+      res
+        .status(202)
+        .json({
+          msg: "Конкурс закрыт. Информация в командах обновлена.",
+          color: "green",
+        });
     } catch (err) {
       console.error(err.message);
       res.status(500).json({ msg: "Ошибка сервера" });
