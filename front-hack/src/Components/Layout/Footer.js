@@ -19,7 +19,7 @@ const Footer = () => {
               <List link inverted>
                 <List.Item as="a">О проекте</List.Item>
                 <List.Item as="a">Обратная связь</List.Item>
-                <List.Item as="a">Политика конфиденциальности</List.Item>
+                <List.Item as="a" href="/privacy">Политика конфиденциальности</List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={4}>
