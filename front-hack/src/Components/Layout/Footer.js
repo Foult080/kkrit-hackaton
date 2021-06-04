@@ -23,7 +23,7 @@ const Footer = () => {
                 <List.Item as="a">
                   <Popup
                     content={
-                      <>
+                      <p>
                         Если вы нашли ошибку или вам есть что предложить, то
                         пожалуйста заполните форму на{" "}
                         <a
@@ -32,7 +32,7 @@ const Footer = () => {
                         >
                           Github.
                         </a>
-                      </>
+                      </p>
                     }
                     on="click"
                     popper={{ id: "popper-container", style: { zIndex: 2000 } }}
